@@ -10,9 +10,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.cursomc.domain.Cidade;
 import br.com.cursomc.domain.Cliente;
+import br.com.cursomc.domain.Endereco;
+import br.com.cursomc.domain.enums.TipoCliente;
 import br.com.cursomc.dto.ClienteDTO;
+import br.com.cursomc.dto.ClienteNewDTO;
 import br.com.cursomc.repositories.ClienteRepository;
+import br.com.cursomc.repositories.EnderecoRepository;
 import br.com.cursomc.services.exceptions.DataIntegrityException;
 import br.com.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -20,6 +25,10 @@ import br.com.cursomc.services.exceptions.ObjectNotFoundException;
 public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
+	@Autowired
+	private EnderecoRepository enderecorepository;
+	
+	
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
@@ -29,10 +38,12 @@ public class ClienteService {
 	
 	public Cliente insert (Cliente obj) {
 		obj.setId(null);
-		return repository.save(obj);
+		obj=repository.save(obj);
+		enderecorepository.saveAll(obj.getEnderecos());
+		return obj;
 	}
 	
-	public Cliente update(Cliente obj) {
+	public Cliente update(Cliente obj) { 
 		Cliente newObj=find(obj.getId());
 		updateData(newObj, obj);
 		return repository.save(newObj);
@@ -64,5 +75,20 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), null, null);
+	}
+	
+	public Cliente fromDTO(ClienteNewDTO clienteNewDTO) {
+		Cidade cidade = new Cidade(clienteNewDTO.getCidadeId(), null,null);
+		Cliente cliente = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfouCnpj(), TipoCliente.toEnum(clienteNewDTO.getTipo()));
+		Endereco endereco = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(), clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cliente, cidade);
+		cliente.getEnderecos().add(endereco);
+		cliente.getTelefones().add(clienteNewDTO.getTelefone1());
+		if(clienteNewDTO.getTelefone2()!=null) {
+			cliente.getTelefones().add(clienteNewDTO.getTelefone2());
+		}
+		if(clienteNewDTO.getTelefone3()!=null) {
+			cliente.getTelefones().add(clienteNewDTO.getTelefone3());
+		}
+		return cliente;
 	}
 }
