@@ -2,20 +2,32 @@ package br.com.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	@NotEmpty(message="Preenchimento obrigatório!")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres!")
 	private String nome;
+	@NotEmpty(message="Preenchimento obrigatório!")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres!")
 	private String email;
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String cpfouCnpj;
 	private Integer tipo;
-	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String logradouro;
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String numero;
 	private String complemento;
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String bairro;
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String cep;
-	
+	@NotEmpty(message="Preenchimento obrigatório!")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
@@ -24,7 +36,8 @@ public class ClienteNewDTO implements Serializable{
 
 	public ClienteNewDTO() {
 	}
-
+	
+	
 	public ClienteNewDTO(String nome, String email, String cpfouCnpj, Integer tipo, String logradouro, String numero,
 			String complemento, String bairro, String cep, String telefone1, String telefone2, String telefone3,
 			Integer cidadeId) {
