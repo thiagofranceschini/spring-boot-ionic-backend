@@ -15,7 +15,6 @@ import br.com.cursomc.domain.enums.EstadoPagamento;
 import br.com.cursomc.repositories.ItemPedidoRepository;
 import br.com.cursomc.repositories.PagamentoRepository;
 import br.com.cursomc.repositories.PedidoRepository;
-import br.com.cursomc.service.SmtpEmailService;
 import br.com.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,8 +31,10 @@ public class PedidoService {
 	private ProdutoService produtoService;
 	@Autowired
 	private ClienteService clienteService;
+	@SuppressWarnings("unused")
 	@Autowired
 	private EmailService emailService;
+	@SuppressWarnings("unused")
 	@Autowired
 	private SmtpEmailService emailService2;
 	
@@ -68,7 +69,7 @@ public class PedidoService {
 		
 		itemPedidoRepository.saveAll(obj.getItens());
 		
-		emailService.sendOrderConfirmationEmail(obj);
+		emailService2.sendOrderConfirmationHtmlEmail(obj);
 		
 		return obj;
 	}

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.cursomc.DBService;
-import br.com.cursomc.service.SmtpEmailService;
 import br.com.cursomc.services.EmailService;
+import br.com.cursomc.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
