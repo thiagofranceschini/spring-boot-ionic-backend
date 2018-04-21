@@ -15,6 +15,7 @@ import br.com.cursomc.domain.enums.EstadoPagamento;
 import br.com.cursomc.repositories.ItemPedidoRepository;
 import br.com.cursomc.repositories.PagamentoRepository;
 import br.com.cursomc.repositories.PedidoRepository;
+import br.com.cursomc.service.SmtpEmailService;
 import br.com.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -33,6 +34,8 @@ public class PedidoService {
 	private ClienteService clienteService;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private SmtpEmailService emailService2;
 	
 	
 	public Pedido find(Integer id) {
