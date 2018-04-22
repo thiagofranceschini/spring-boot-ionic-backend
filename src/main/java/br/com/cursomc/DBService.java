@@ -123,7 +123,7 @@ public class DBService {
 		
 		Cliente cli1 = new Cliente(null, "Thiago Franceschini", "tayfranceschini@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
-		Cliente cli2 = new Cliente(null, "Thamires Franceschini", "thiagoconsultor1@gmil.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
+		Cliente cli2 = new Cliente(null, "Thamires Franceschini", "thiagoconsultor1@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
 		cli2.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		cli2.addPerfil(Perfil.ADMIN);
 		Cliente cli3 = new Cliente(null, "Lorena Franceschini", "thiago.franceschini@resource.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
