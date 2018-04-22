@@ -20,6 +20,7 @@ import br.com.cursomc.domain.PagamentoComCartao;
 import br.com.cursomc.domain.Pedido;
 import br.com.cursomc.domain.Produto;
 import br.com.cursomc.domain.enums.EstadoPagamento;
+import br.com.cursomc.domain.enums.Perfil;
 import br.com.cursomc.domain.enums.TipoCliente;
 import br.com.cursomc.repositories.CategoriaRepository;
 import br.com.cursomc.repositories.CidadeRepository;
@@ -122,12 +123,25 @@ public class DBService {
 		
 		Cliente cli1 = new Cliente(null, "Thiago Franceschini", "tayfranceschini@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		Cliente cli2 = new Cliente(null, "Thamires Franceschini", "thiagoconsultor1@gmil.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		cli2.addPerfil(Perfil.ADMIN);
+		Cliente cli3 = new Cliente(null, "Lorena Franceschini", "thiago.franceschini@resource.com", "36378912377", TipoCliente.PESSOAFISICA, bpe.encode("123"));
+		cli3.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		cli3.addPerfil(Perfil.ADMIN);
+		
 		Endereco e1 = new Endereco(null, "Rua Flores","300", "Apto 303", "jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos","105", "Sala 800", "Centro", "38777012", cli1, c2);
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		Endereco e3 = new Endereco(null, "Av Sarah Veloso","1200", "Apto 164", "Jd. Metalúrgicos", "38777012", cli2, c2);
+		Endereco e4 = new Endereco(null, "Alameda Nogueira","22", "Forest Hills", "Altos de São Fernando", "38777012", cli3, c3);
+		
+		cli2.getEnderecos().addAll(Arrays.asList(e3, e4));
+		cli3.getEnderecos().add(e3);
+		
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2, e3, e4));
 		
 		//
 		
